@@ -30,4 +30,4 @@ halo_pos_shape = halo_pos.shape
 
 # print(f"Input file: {input_file}")
 # print(f"Output folder: {output_dir}/")
-print(f"Halo position shape: {halo_pos_shape}")
+print(f"Halo position shape in output_{output_suffix}: {halo_pos_shape}")

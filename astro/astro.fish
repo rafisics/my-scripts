@@ -82,7 +82,7 @@ function get_halo_pos_shape
     
     for i in (seq -f "%02g" $start $end)
         echo "================================"
-        echo "Getting halo position shape for output_$i... [$Mode]"
+        # echo "Getting halo position shape for output_$i... [$Mode]"
         python ~/my-scripts/astro/halo-pos-shape.py /mnt/ssd-ext/{$mode}-phi/rockstar-outputs/output_$i/halos_0.0.ascii 
         echo "================================"
     end
@@ -129,7 +129,7 @@ function get_void_pos_shape
       
     for i in (seq -f "%02g" $start $end)
         echo "================================"
-        echo "Getting void position shape for output_$i... [$Mode]"
+        # echo "Getting void position shape for output_$i... [$Mode]"
         python ~/my-scripts/astro/void-pos-shape.py /mnt/ssd-ext/{$mode}-phi/revolver-outputs/output_$i/zobov-voids_halo_{$i}_cat.txt
         echo "================================"
     end

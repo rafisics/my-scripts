@@ -30,4 +30,4 @@ void_pos_shape = void_pos.shape
 
 # print(f"Input file: {input_file}")
 # print(f"Output folder: {output_dir}/")
-print(f"Halo position shape: {void_pos_shape}")
+print(f"Void position shape in output_{output_suffix}: {void_pos_shape}")
