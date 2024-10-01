@@ -75,6 +75,19 @@ function get_halo_pos_mass
     end
 end
 
+function get_halo_pos_shape
+    set_mode $argv[1]  # 'g' for Gevolution or 's' for Screening
+    set start $argv[2]
+    set end $argv[3]
+    
+    for i in (seq -f "%02g" $start $end)
+        echo "================================"
+        echo "Getting halo position shape for output_$i... [$Mode]"
+        python ~/my-scripts/astro/halo-pos-shape.py /mnt/ssd-ext/{$mode}-phi/rockstar-outputs/output_$i/halos_0.0.ascii 
+        echo "================================"
+    end
+end
+
 #########################################
 
 # For Revolver
@@ -105,6 +118,19 @@ function get_void_pos_radii
         echo "================================"
         echo "Getting void position and radii for output_$i... [$Mode]"
         python ~/my-scripts/astro/void-pos-radii.py /mnt/ssd-ext/{$mode}-phi/revolver-outputs/output_$i/zobov-voids_halo_{$i}_cat.txt
+        echo "================================"
+    end
+end
+
+function get_void_pos_shape
+    set_mode $argv[1]  # 'g' for Gevolution or 's' for Screening
+    set start $argv[2]
+    set end $argv[3]
+      
+    for i in (seq -f "%02g" $start $end)
+        echo "================================"
+        echo "Getting void position shape for output_$i... [$Mode]"
+        python ~/my-scripts/astro/void-pos-shape.py /mnt/ssd-ext/{$mode}-phi/revolver-outputs/output_$i/zobov-voids_halo_{$i}_cat.txt
         echo "================================"
     end
 end
