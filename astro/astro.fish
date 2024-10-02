@@ -41,6 +41,18 @@ function set_mode
     set -g Mode (string sub -s 1 -l 1 $mode | string upper)(string sub -s 2 $mode)
 end
 
+function read_settings 
+    set_mode $argv[1]  # 'g' for Gevolution or 's' for Screening
+    set start $argv[2]
+    set end $argv[3]
+    echo "Reading the settings files... [$Mode]"
+    for i in (seq -f "%02g" $start $end)
+        echo "================================"
+        python ~/my-scripts/astro/read-settings.py  /mnt/ssd-ext/{$mode}-phi/settings/settings_$i.ini
+        echo "================================"
+    end
+end
+
 #########################################
 
 # For Rockstar
