@@ -48,10 +48,34 @@ function read_settings
     echo "Reading the settings files... [$Mode]"
     for i in (seq -f "%02g" $start $end)
         echo "================================"
-        python ~/my-scripts/astro/read-settings.py  /mnt/ssd-ext/{$mode}-phi/settings/settings_$i.ini
+        python ~/my-scripts/astro/read-settings.py /mnt/ssd-ext/{$mode}-phi/settings/settings_$i.ini
         echo "================================"
     end
 end
+
+function read_seed
+    set_mode $argv[1]  # 'g' for Gevolution or 's' for Screening
+    set start $argv[2]
+    set end $argv[3]
+    set seed_list  # an empty list to store the seed values
+
+    echo "Reading the settings files... [$mode]"
+
+    for i in (seq -f "%02g" $start $end)
+        # echo "================================"
+        # Capture the output of the Python script (which prints only the seed value)
+        set seed_value (python ~/my-scripts/astro/read-seed.py /mnt/ssd-ext/{$mode}-phi/settings/settings_$i.ini)
+        
+        # Append the seed value to the list
+        set seed_list $seed_list $seed_value
+        # echo "Seed value for settings_$i.ini: $seed_value"
+        # echo "================================"
+    end
+
+    # Print the entire list of seed values
+    echo "All seed values: $seed_list"
+end
+
 
 #########################################
 
