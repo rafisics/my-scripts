@@ -41,5 +41,5 @@ if __name__ == "__main__":
     file_name = settings_file.split('/')[-1].split('.')[0]
 
     # Format the output
-    output = f"{file_name} : tiling factor = {settings['tiling factor']}, seed = {settings['seed']}, boxsize = {settings['boxsize']}, Ngrid = {settings['Ngrid']},"
+    output = f"{file_name} : tiling factor = {settings['tiling factor']}, seed = {settings['seed']}, boxsize = {settings['boxsize']}, Ngrid = {settings['Ngrid']}."
     print(output)
