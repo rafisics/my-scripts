@@ -76,6 +76,60 @@ function read_seed
     echo "All seed values: $seed_list"
 end
 
+function create_settings_seed
+    set_mode $argv[1]  # 'g' for Gevolution or 's' for Screening
+    set start $argv[2]
+    set end $argv[3]
+    set seed 42 413 360 444 124 955 266 62 846 935 845 908 537 827 317 109 861 785 415 956 470  # list of 21 seeds
+
+    for i in (seq -f "%02g" $start $end)
+        set current_seed $seed[$i]  # Use $i directly as Fish array is 1-based
+
+        echo "================================"
+        echo "Create settings ($i) with seed=$current_seed..."
+
+        # Create a temporary copy of custom_settings.ini
+        cp settings/custom_settings.ini settings/settings_$i.ini
+
+        # Update the temporary settings file with current seed and output path while preserving the format
+        sed -i "s/^\(seed *= *\)[0-9]\{1,\}/\1$current_seed/" settings/settings_$i.ini
+        sed -i "s|^output path * =.*|output path         = /mnt/ssd-ext/$mode-phi/outputs/output_$i/|" settings/settings_$i.ini
+
+        # Remove the temporary settings file after the run
+        # rm settings/settings_$i.ini
+
+        echo "================================"
+    end
+end
+
+function run_simulation
+    set_mode $argv[1]  # 'g' for Gevolution or 's' for Screening
+    set start $argv[2]
+    set end $argv[3]
+    set seed 42 413 360 444 124 955 266 62 846 935 845 908 537 827 317 109 861 785 415 956 470  # list of 21 seeds
+
+    for i in (seq -f "%02g" $start $end)
+        set current_seed $seed[$i]  # Use $i directly as Fish array is 1-based
+
+        echo "================================"
+        echo "Running $Mode for settings ($i) with seed=$current_seed..."
+
+        # Create a copy of custom_settings.ini
+        cp settings/custom_settings.ini settings/settings_$i.ini
+
+        # Update the copied settings file with current seed and output path while preserving the format
+        sed -i "s/^\(seed *= *\)[0-9]\{1,\}/\1$current_seed/" settings/settings_$i.ini
+        sed -i "s|^output path * =.*|output path         = /mnt/ssd-ext/$mode-phi/outputs/output_$i/|" settings/settings_$i.ini
+
+        # Run the simulation using the temporary settings file
+        mpirun --oversubscribe -np 16 ./gevolution -n 4 -m 4 -s settings/settings_$i.ini
+
+        # Remove the temporary settings file after the run
+        rm settings/settings_$i.ini
+
+        echo "================================"
+    end
+end
 
 #########################################
 
