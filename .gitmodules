@@ -1,0 +1,3 @@
+[submodule "remove-snap-in-ubuntu"]
+	path = remove-snap-in-ubuntu
+	url = https://github.com/PagalSarthak/Remove-snap-in-ubuntu.git
